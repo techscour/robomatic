@@ -1,4 +1,4 @@
-
+require 'pry'
 
 module Preprocessor
 
@@ -7,7 +7,7 @@ module Preprocessor
       stack = []
       tokens = []
       token = ''
-      chars = x.split('')
+      chars = x.chars
       final = chars.pop()
       chars.each() do |char|
         if '[({'.include?(char)
@@ -20,8 +20,8 @@ module Preprocessor
           token = ''
         end
       end
-      token = token.strip()
-      tokens.push(token) unless token == ''
+      tokens << token 
+      tokens = tokens.collect{|x| x.strip() }.select{|x| x != "" }
       tokens << final
       tokens
     end
@@ -43,14 +43,19 @@ module Preprocessor
     end
 
     def unwrap(x)
-      x[1..-1]
+      x[1..-2]
     end
 end
-
-if true 
+if false 
   include Preprocessor
   t1 = 'omega [alpha] beta (tau) gamma {delta} rho.'
   result = package(parse(t1))
   puts result
 end
-
+if false 
+  STDIN.read.split("\n").each do |a|
+    a = a.strip
+    next if a.empty?
+    puts a
+  end
+end

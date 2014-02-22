@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+require './parselib.rb'
+
+include Preprocessor
+
+STDIN.read.split("\n").each do |a|
+  a = a.strip
+  next if a.empty?
+  #puts a
+  #b = parse(a)
+  #puts b.inspect
+  #puts package(b)
+  puts package(parse(a)).inspect
+end
+
