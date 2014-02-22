@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require "readline"
+require 'open-uri'
+
+unless ARGV.size == 1
+  puts 'usage: client url'
+  exit
+end
+
+host = ARGV[0]
+
+def get(host)
+  open(host) {|f|
+    f.each_line {|line| p line}
+  }
+end
+
+get(host)
+while buf = Readline.readline("> ", true)
+  return if buf == nil
+  buf = buf.strip
+  if buf == 'quit'
+    puts 'bye'
+    exit
+  else 
+    puts buf
+  end
+end
+
