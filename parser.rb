@@ -34,16 +34,20 @@ module Preprocessor
       x.each() do |token|
         first = token[0]
         if '[({'.include?(first)
-    	result[:variables] << token
+    	  result[:variables] << unwrap(token)
         else
-    	result[:literals] << token
+    	  result[:literals] << token
         end
       end
       result
     end
+
+    def unwrap(x)
+      x[1..-1]
+    end
 end
 
-if false
+if true 
   include Preprocessor
   t1 = 'omega [alpha] beta (tau) gamma {delta} rho.'
   result = package(parse(t1))
