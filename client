@@ -2,6 +2,7 @@
 
 require "readline"
 require 'open-uri'
+require 'pry'
 require 'uri'
 
 unless ARGV.size == 1
@@ -19,15 +20,17 @@ def hostget(host)
   response
 end
 
-mode = 'command'
+mode = 'compose'
 puts hostget(host)
 while buf = Readline.readline("> ", true)
   return if buf == nil
   buf = buf.strip
-
   if buf == 'close'
     puts 'bye'
     exit
+  elsif buf == 'command'
+    mode = 'command'
+    puts 'command'
   elsif buf == 'compose'
     mode = 'compose'
     puts 'compose'

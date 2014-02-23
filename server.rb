@@ -1,6 +1,8 @@
 require 'sinatra'
 require './parselib.rb'
 require 'uri'
+require 'pry'
+
 include Preprocessor
 
 statements = []
@@ -32,7 +34,7 @@ end
 
 def compiler(statements,commands)
   code = []
-  commands = []
+  commands = [] if commands.size > 0
   lines = statements.collect{|x| x.strip }.select{|x| !x.empty?} 
   packaged = lines.collect{|x| package(parse(x))}
   #packaged.each{|x| puts x.inspect}
@@ -43,7 +45,7 @@ def compiler(statements,commands)
   checkpoints = by_literals['is a checkpoint in']
   comprehensives = by_literals['is comprehensive']
   at_checkpoint = by_literals['is at checkpoint in']
-  code << "def commander(statement,command)" 
+  code << "def commander(statements,command)" 
   code << "  case command"
   changeologies.each() do |changeology|
     changeology_id = changeology[:variables][0]
@@ -61,47 +63,46 @@ def compiler(statements,commands)
        checkpoints.each() do |checkpoint|
          checkpoint_id = checkpoint[:variables][0].gsub("'","\\'")
          code << "    when '(#{changeable_id}) is at checkpoint (#{checkpoint_id}) in (#{constellation_id})!'" 
-         code << "      old = comb('(#{changeable_id}) is at checkpoint (?) in (#{constellation_id})!')" 
+         code << "      old = comber('(#{changeable_id}) is at checkpoint (?) in (#{constellation_id})!',statements)" 
          code << "      statements.delete(old)"
-         code << "      statments << '(#{changeable_id}) is at checkpoint (#{checkpoint_id}) in (#{constellation_id}).'"
-         commands << "(#{changeable_id}) is at checkpoint (#{checkpoint_id}) in (#{constellation_id})." 
+         code << "      statements << '(#{changeable_id}) is at checkpoint (#{checkpoint_id}) in (#{constellation_id}).'"
+         commands << "(#{changeable_id}) is at checkpoint (#{checkpoint_id}) in (#{constellation_id})!" 
         end
       end
     end
   end
   code << "  end" 
   code << "end" 
-  puts code.join("\n")
+  code.join("\n")
 end
-
-#compiler(statements,commands)
 
 get '/'do
   "Welcome to Robomatic"
 end
 
 get '/command' do
-  decoded = URI.decode(params[:text]);
-  if commands.include(decoded)
-    commander(decoded)
+  decoded = URI.decode(params[:text])
+  if commands.include?(decoded)
+    commander(statements,decoded)
     return 'OK'
   else
     return 'UNKNOWN COMMAND'
+  end
 end
 
 get '/compose' do
-  decoded = URI.decode(params[:text]);
+  decoded = URI.decode(params[:text])
   statements << decoded
   "composed #{decoded}"
 end
 
 get '/comb' do
-  decoded = URI.decode(params[:text]);
+  decoded = URI.decode(params[:text])
   comber(decoded,statements)
 end
 
 get '/compile' do
-  code = compiler(statements,commands);
+  code = compiler(statements,commands)
   eval(code)
   code
 end

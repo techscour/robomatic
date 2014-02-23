@@ -27,6 +27,8 @@ comb
 
 compile
 
+commands
+
 command
 (John H) is at checkpoint (John Is Asleep) in (John Is Awake Or Asleep)!
 
