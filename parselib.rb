@@ -28,17 +28,20 @@ module Preprocessor
 
     def package(x)
       result = {}
+      result[:decl] = false
       result[:literals] = []
       result[:variables] = []
       result[:punctuation] = x.pop()
       x.each() do |token|
         first = token[0]
         if '[({'.include?(first)
+      	  result[:decl] = true if first == '['
     	  result[:variables] << unwrap(token)
         else
     	  result[:literals] << token
         end
       end
+      result[:literals] = result[:literals].join(' ')
       result
     end
 

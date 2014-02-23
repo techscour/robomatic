@@ -3,13 +3,41 @@ require './parselib.rb'
 
 include Preprocessor
 
+cmdtypes = [
+"is a changeology",
+"is a constellation in",
+"is comprehensive",
+"is a changeable in",
+"is a checkpoint in",
+"is at checkpoint in",
+"is a change in",
+"commences at",
+"concludes at"
+]
+
+packaged = []
 STDIN.read.split("\n").each do |a|
   a = a.strip
   next if a.empty?
-  #puts a
-  #b = parse(a)
-  #puts b.inspect
-  #puts package(b)
-  puts package(parse(a)).inspect
+  packaged << package(parse(a))
 end
+
+abc = packaged.collect{|x| x[:literals] }.uniq
+puts abc
+by_literals = packaged.group_by{|x| x[:literals]}
+#puts by_literals.size.to_s
+#puts by_literals.keys.inspect
+decls = {}
+packaged.select{|x| x[:decl] == true}.size
+packaged.select{|x| x[:decl] == true}.each{|x| decls[x[:variables][0]] = x } 
+#puts decls.size
+#puts decls.keys.inspect
+not_decl = packaged.select{|x| x[:decl] == false}
+puts not_decl.size
+refs1 = not_decl.select{|x| x[:variables].size == 1}.group_by{|x| x[:variables][0]  }
+refs2 = not_decl.select{|x| x[:variables].size == 2 }.group_by{|x| [:variables][1] }
+refs3 = not_decl.select{|x| x[:variables].size == 3 }.group_by{|x| [:variables][2] }
+#puts refs1.size
+#puts refs2.size
+#puts refs3.size
 

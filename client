@@ -2,6 +2,7 @@
 
 require "readline"
 require 'open-uri'
+require 'uri'
 
 unless ARGV.size == 1
   puts 'usage: client url'
@@ -10,21 +11,37 @@ end
 
 host = ARGV[0]
 
-def get(host)
+def hostget(host)
+  response = []
   open(host) {|f|
-    f.each_line {|line| p line}
+    f.each_line {|line| response << line}
   }
+  response
 end
 
-get(host)
+mode = 'command'
+puts hostget(host)
 while buf = Readline.readline("> ", true)
   return if buf == nil
   buf = buf.strip
-  if buf == 'quit'
+
+  if buf == 'close'
     puts 'bye'
     exit
-  else 
-    puts buf
+  elsif buf == 'compose'
+    mode = 'compose'
+  elsif buf == 'compile'
+    puts hostget("#{host}/compile")
+    mode = 'command'
+  elsif buf == 'clear'
+    puts hostget("#{host}/clear")
+    mode = 'command'
+  elsif mode == 'command'
+    puts hostget("#{host}/command?text=#{URI.encode(buf)}")
+  elsif mode == 'compose'
+    puts hostget("#{host}/compose?text=#{URI.encode(buf)}")
+  else
+     thow 'oops'
   end
 end
 
