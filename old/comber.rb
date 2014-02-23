@@ -1,5 +1,6 @@
 
 
+
 statements = [
 "[John's Status] is a changeology.",
 "[John's Location] is a constellation in (John's Status).",
@@ -16,21 +17,17 @@ statements = [
 "(Home To Work) concludes at (At Work).",
 "[John Is Awake Or Asleep] is a constellation in (John's Status).",
 "(John Is Awake Or Asleep) is comprehensive.",
-"[John H] is a changeable in (John's Is Awake Or Asleep).",
+"[John H] is a changeable in (John Is Awake Or Asleep).",
 "[John Is Awake] is a checkpoint in (John Is Awake Or Asleep).",
 "[John Is Asleep] is a checkpoint in (John Is Awake Or Asleep).",
-"(John H) is at checkpoint (John Is Awake) in (John is Awake Or Asleep)."
+"(John H) is at checkpoint (John Is Awake) in (John Is Awake Or Asleep)."
 ]
 
 
+
 def escape(x)
-  x = x.gsub("{","\\{")
-  x = x.gsub("(","\\(")
-  x = x.gsub("[","\\[")
-  x = x.gsub("}","\\}")
-  x = x.gsub(")","\\)")
-  x = x.gsub("]","\\]")
-  x
+  x = x.gsub("{","\\{").gsub("(","\\(").gsub("[","\\[")
+  x.gsub("}","\\}").gsub(")","\\)").gsub("]","\\]")
 end
 
 def comber(query,statements)
@@ -54,8 +51,8 @@ def comber(query,statements)
   statements.select{|x| regex.match(x)}
 end
 
-q = "(John H) is at checkpoint (John Is Awake) in (John is Awake Or Asleep)?"
+q = "(John H) is at checkpoint (John Is Awake) in (John Is Awake Or Asleep)?"
 puts comber(q,statements)
-q = "(John H) is at checkpoint (?) in (John is Awake Or Asleep)."
+q = "(John H) is at checkpoint (?) in (John Is Awake Or Asleep)."
 puts comber(q,statements)
 

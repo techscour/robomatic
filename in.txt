@@ -1,4 +1,35 @@
-abc
-def
-ghi
-quit
+compose
+[John's Status] is a changeology.
+[John's Location] is a constellation in (John's Status).
+(John's Location) is comprehensive.",
+[John H] is a changeable in (John's Location).
+[At Home] is a checkpoint in (John's Location).
+[At Work] is a checkpoint in (John's Location).
+[Visiting] is a checkpoint in (John's Location).
+[Shopping] is a checkpoint in (John's Location).
+[Elsewhere] is a checkpoint in (John's Location).
+(John H) is at checkpoint (At Home) in (John's Location).
+[Home To Work] is a change in (John's Location).
+(Home To Work) commences at (At Home).
+(Home To Work) concludes at (At Work).
+[John Is Awake Or Asleep] is a constellation in (John's Status).
+(John Is Awake Or Asleep) is comprehensive.
+[John H] is a changeable in (John Is Awake Or Asleep).
+[John Is Awake] is a checkpoint in (John Is Awake Or Asleep).
+[John Is Asleep] is a checkpoint in (John Is Awake Or Asleep).
+(John H) is at checkpoint (John Is Awake) in (John Is Awake Or Asleep).
+
+composed
+
+comb
+(John H) is at checkpoint (John Is Awake) in (John Is Awake Or Asleep)?
+(John H) is at checkpoint (?) in (John Is Awake Or Asleep).
+
+compile
+
+command
+(John H) is at checkpoint (John Is Asleep) in (John Is Awake Or Asleep)!
+
+clean
+
+close
