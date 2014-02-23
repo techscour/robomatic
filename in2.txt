@@ -20,6 +20,7 @@ compose
 [John Is Awake] is a checkpoint in (John Is Awake Or Asleep).
 [John Is Asleep] is a checkpoint in (John Is Awake Or Asleep).
 (John H) is at checkpoint (John Is Awake) in (John is Awake Or Asleep).
+composed
 compile
 clear
 close

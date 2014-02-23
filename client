@@ -30,15 +30,20 @@ while buf = Readline.readline("> ", true)
     exit
   elsif buf == 'compose'
     mode = 'compose'
+    puts 'compose'
   elsif buf == 'compile'
+    mode = 'command'
     puts hostget("#{host}/compile")
-    mode = 'command'
   elsif buf == 'clear'
-    puts hostget("#{host}/clear")
     mode = 'command'
+    puts hostget("#{host}/clear")
+  elsif buf == 'composed'
+    puts hostget("#{host}/composed")
   elsif mode == 'command'
+    next if buf.empty?
     puts hostget("#{host}/command?text=#{URI.encode(buf)}")
   elsif mode == 'compose'
+    next if buf.empty?
     puts hostget("#{host}/compose?text=#{URI.encode(buf)}")
   else
      thow 'oops'

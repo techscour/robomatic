@@ -8,15 +8,22 @@ get '/'do
 end
 
 get '/command' do
-  "command #{params[:text]}"
+  decoded = URI.decode(params[:text]);
+  "command #{decoded}"
 end
 
 get '/compose' do
-  "composed #{params[:text]}"
+  decoded = URI.decode(params[:text]);
+  composed << decoded
+  "composed #{decoded}"
 end
 
 get '/compile' do
   'compile complete'
+end
+
+get '/check' do
+  'check complete'
 end
 
 get '/clear' do
@@ -24,3 +31,6 @@ get '/clear' do
   'cleared'
 end
 
+get '/composed' do
+  composed.join("\n")
+end
