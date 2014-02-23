@@ -1,23 +1,22 @@
-robomatic
+Robomatic: A Mechanization as a Service demo
 =========
 
-minimal demo of Mechanization as a Service
 
 This is a toy version of the TechScour Systems Mechanization
 As A Service (MASS) system. It demonstrates the basic functions
 of Internet soft robots including:
 
-specification
-search
-synthesis
-statusing
-sequencing
+* specification
+* search
+* synthesis
+* statusing
+* sequencing
 
 demo directions (linux only):
 
-bundle
-bundle exec ruby server.rb
-sh doit.sh
+1. bundle
+2. bundle exec ruby server.rb
+3. sh doit.sh
 
 These commands run a client script that demonstrates
 the functions of robomatic.
