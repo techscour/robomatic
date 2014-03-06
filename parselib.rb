@@ -63,7 +63,8 @@ if false
   result = package(parse(t1))
   puts result
 end
-if true 
+
+if false 
   include Preprocessor
   t1 = 'omega [alpha] beta (tau) gamma {[ID] this is a (that)} rho.'
   result = package(parse(t1))
